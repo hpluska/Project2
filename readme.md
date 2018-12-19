@@ -1,8 +1,8 @@
 ## Project 2: Project PlayList
 
-*Author: Carson Wright
-*Class: APCSA Period 2
-*Semester: Winter 2018
+* Author: Carson Wright
+* Class: APCSA Period 2
+* Semester: Winter 2018
 
 ## Overview
 This program takes input from the user and outputs a playlist ordered by length, the song closest to four minutes, and the average playtime.
