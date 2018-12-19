@@ -16,7 +16,7 @@ public class Playlist {
 
     public static void main(String[] args) {
 
-        for(numSongs = 0; numSongs <= 99; numSongs++) {
+        for (numSongs = 0; numSongs <= 99; numSongs++) {
 
             System.out.println("Would you like to add a new song?   y/n");
             if (in.nextLine().toLowerCase().equals("n")) {
@@ -29,53 +29,17 @@ public class Playlist {
             String artist = in.nextLine();
             System.out.print("Play Time(mm:ss): ");
             String[] h1 = in.nextLine().split(":");
-            int playTime = (Integer.parseInt(h1[0])*60) + (Integer.parseInt(h1[1]));
-            String filePath = null;
-
-            do {
-                JFileChooser j = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-                int r = j.showOpenDialog(null);
-                if (r == JFileChooser.APPROVE_OPTION) {
-                    // set the label to the path of the selected file
-                    filePath = j.getSelectedFile().getAbsolutePath();
-                    System.out.println(filePath);
-                }
-                // if the user cancelled the operation
-                else {
-                    System.out.println("You Must Select A File.");
-                }
-            } while(filePath == null);
+            int playTime = (Integer.parseInt(h1[0]) * 60) + (Integer.parseInt(h1[1]));
+            System.out.print("File Path:  ");
+            String filePath = in.nextLine();
             songs[numSongs] = new Song(title, artist, playTime, filePath);
+            songs[numSongs].playSong();
             System.out.println("-------------------");
         }
-
-        playlist();
-        while(!quit) {
-            System.out.println("Would you like to \"play\" a song, \"print\" the playlist, or \"quit\".");
-            switch(in.nextLine().toLowerCase()) {
-                case "play":
-                    System.out.println("What song number would you like to play");
-                    order[in.nextInt()-1].playSong();
-                    playlist();
-                    break;
-                case "print":
-                    playlist();
-                    break;
-                case "quit":
-                    quit = true;
-                    break;
-            }
-
-        }
-
-    }
-
-    static private void playlist() {
-
         Song largest = songs[0];
         int y = 0;
 
-        for(int x = 0; x < numSongs; x ++) {
+        for (int x = 0; x < numSongs; x++) {
             if (songs[x].getPlayTime() > largest.getPlayTime()) {
                 largest = songs[x];
 
@@ -97,8 +61,8 @@ public class Playlist {
         System.out.println("  Title           Artist          Time            Path");
         System.out.println("-------------------------------------------------------------------------------------------------------------------");
 
-        for(int x = numSongs-1; x >= 0; x--) {
-            System.out.print(x+1 + " ");
+        for (int x = numSongs - 1; x >= 0; x--) {
+            System.out.print(x + 1 + " ");
             System.out.println(order[x]);
         }
 
@@ -106,25 +70,24 @@ public class Playlist {
 
         double averagePlayTime = 0;
 
-        for(int x = numSongs-1; x>= 0; x--) {
+        for (int x = numSongs - 1; x >= 0; x--) {
             averagePlayTime += order[x].getPlayTime();
         }
 
         DecimalFormat df = new DecimalFormat("#####.##");
 
-        System.out.println("The average play time is: " + df.format(averagePlayTime/numSongs));
+        System.out.println("The average play time is: " + df.format(averagePlayTime / numSongs));
         System.out.println("-------------------------------------------------------------------------------------------------------------------");
 
         Song closest = order[0];
 
-        for(int x = numSongs-1; x >= 0; x--) {
-            if(Math.abs(240-order[x].getPlayTime()) <  Math.abs(240-closest.getPlayTime())) {
+        for (int x = numSongs - 1; x >= 0; x--) {
+            if (Math.abs(240 - order[x].getPlayTime()) < Math.abs(240 - closest.getPlayTime())) {
                 closest = order[x];
             }
         }
 
         System.out.println("The song closest to four minutes is: " + closest.getTitle());
         System.out.println("===================================================================================================================");
-        return;
     }
 }
